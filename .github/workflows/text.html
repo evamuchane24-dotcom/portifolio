@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eva's Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --theme-color: #2dd4bf;
+            --theme-dark: #14b8a6;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Sticky Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 5%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--theme-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--theme-color);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+
+        /* Glass Card Effect */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        /* About Section - Text Left, Image Right */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content h2 span {
+            color: var(--theme-color);
+        }
+
+        .about-content p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .career-goals {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(45, 212, 191, 0.1);
+            border-left: 4px solid var(--theme-color);
+            border-radius: 10px;
+        }
+
+        .career-goals h3 {
+            color: var(--theme-color);
+            margin-bottom: 1rem;
+        }
+
+        .career-goals ul {
+            list-style: none;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .career-goals li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .career-goals li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--theme-color);
+        }
+
+        /* Circular Image */
+        .about-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .circular-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--theme-color);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .circular-img:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title span {
+            color: var(--theme-color);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-card h3 {
+            color: var(--theme-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .skill-card p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--theme-color), var(--theme-dark));
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            margin-top: 3rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .portfolio-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .portfolio-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--theme-color);
+        }
+
+        .portfolio-card-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-card h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .portfolio-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .social-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--theme-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .circular-img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">Eva.</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- About Section -->
+        <section id="about" class="glass-card">
+            <div class="about-section">
+                <div class="about-content">
+                    <h2>About <span>Me</span></h2>
+                    <p>
+                        Hello! I'm Eva, a passionate web designer and developer with a keen eye for 
+                        creating beautiful, functional, and user-centered digital experiences.
+                    </p>
+                    <p>
+                        I believe in the power of design to transform ideas into reality and create 
+                        meaningful connections between brands and their audiences.
+                    </p>
+                    
+                    <div class="career-goals">
+                        <h3>Key Career Goals</h3>
+                        <ul>
+                            <li>Become a leading UX/UI designer in the tech industry</li>
+                            <li>Master full-stack web development</li>
+                            <li>Create impactful digital solutions for social good</li>
+                            <li>Continuously learn and adapt to emerging technologies</li>
+                            <li>Mentor aspiring designers and developers</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="about-image">
+                    <!--  images here -->
+                    <img src="intro.jpg" alt="Profile" class="circular-img">
+                    <img src="contact.jpg" alt="Workspace" class="circular-img">
+                    <img src="img2.jpg" alt="Project" class="circular-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section">
+            <h2 class="section-title">My <span>Skills</span></h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <h3>Web Design</h3>
+                    <p>UI/UX Design, Responsive Design, Wireframing</p>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Frontend Dev</h3>
+                    <p>HTML5, CSS3, JavaScript</p>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Graphic Design</h3>
+                    <p>Adobe Photoshop, Illustrator, Adobe Indesign, Canva</p>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 88%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card">
+                    <h3>Motion Graphics</h3>
+                    <p>After Effects, Premiere Pro, Cinema 4D</p>
+                    <div class="skill-bar">
+                        <div class="skill-progress" style="width: 75%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio-section glass-card">
+            <h2 class="section-title">My <span>Portfolio</span></h2>
+            <div class="portfolio-grid">
+                <!-- Portfolio Card 1 -->
+                <div class="portfolio-card">
+                    <img src="flyer1.jpg" alt="Project 1">
+                    <div class="portfolio-card-content">
+                        <h3>Beauty Flyer Design</h3>
+                        <p>A modern and eye-catching flyer design for a beauty brand.</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Card 2 -->
+                <div class="portfolio-card">
+                    <img src="fly3.jpg" alt="Project 2">
+                    <div class="portfolio-card-content">
+                        <h3>Technology Flyer Design</h3>
+                        <p>A sleek and modern flyer design for a tech company.</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Card 3 -->
+                <div class="portfolio-card">
+                    <img src="menu.jpg" alt="Project 3">
+                    <div class="portfolio-card-content">
+                        <h3>Restaurant Menu Design</h3>
+                        <p>A creative and appetizing menu design for a local restaurant.</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Card 4 -->
+                <div class="portfolio-card">
+                    <img src="menu2.jpg" alt="Project 4">
+                    <div class="portfolio-card-content">
+                        <h3>Fast Food Menu Design</h3>
+                        <p>A vibrant and appetizing menu design for a fast food chain.</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Card 5 -->
+                <div class="portfolio-card">
+                    <img src="pos1.jpg" alt="Project 5">
+                    <div class="portfolio-card-content">
+                        <h3>Tech Poster Design</h3>
+                        <p>A dynamic and visually striking poster design for a technology conference.</p>
+                    </div>
+                </div>
+
+                <!-- Portfolio Card 6 -->
+                <div class="portfolio-card">
+                    <img src="pos2.jpg" alt="Project 6">
+                    <div class="portfolio-card-content">
+                        <h3>Gadget Poster Design</h3>
+                        <p>A modern and eye-catching poster design for a gadget launch event.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <p>&copy; 2026 Eva. All rights reserved.</p>
+        <div class="social-links">
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+            <a href="#">Twitter</a>
+            <a href="#">Email</a>
+        </div>
+    </footer>
+</body>
+</html>
